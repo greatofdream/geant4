@@ -1,0 +1,23 @@
+/run/initialize
+
+/gps/verbose 0
+/gps/particle neutron
+# default direction 1 0 0
+# /gps/direction 1 0 0
+# /gps/energy 0 MeV
+# /gps/position 0 0 0 m
+/gps/pos/type Volume
+/gps/pos/shape Sphere
+/gps/pos/centre 0 0 0 m
+/gps/pos/radius 13.0 m
+/gps/pos/inner_radius 13.5 m
+
+/gps/ang/type iso
+
+/gps/ene/type Exp
+/gps/ene/min 0 GeV
+/gps/ene/max 10 GeV
+
+/gps/ene/ezero 1 GeV
+
+/run/beamOn 100000
