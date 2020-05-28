@@ -61,6 +61,8 @@ class B2bDetectorConstruction : public G4VUserDetectorConstruction
     void SetMaxStep (G4double );
     void SetCheckOverlaps(G4bool );
 
+    G4LogicalVolume* GetScoringVolume()const{return labLV;};
+
   private:
     // methods
     void DefineMaterials();

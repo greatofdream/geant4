@@ -34,12 +34,20 @@
 #include "G4TrajectoryContainer.hh"
 #include "G4Trajectory.hh"
 #include "G4ios.hh"
-
+// analysis
+#include "g4root.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 B2EventAction::B2EventAction()
 : G4UserEventAction()
-{}
+{
+  nu_eEnergy = 0.;
+  nu_eFlag = true;
+  nu_muEnergy = 0.;
+  nu_muFlag = true;
+  eEnergy = 0.;
+  eFlag = true;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -49,14 +57,27 @@ B2EventAction::~B2EventAction()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void B2EventAction::BeginOfEventAction(const G4Event*)
-{}
+{
+  nu_eEnergy = 0.;
+  nu_eFlag = true;
+  nu_muEnergy = 0.;
+  nu_muFlag = true;
+  eEnergy = 0.;
+  eFlag = true;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void B2EventAction::EndOfEventAction(const G4Event* event)
 {
-  // get number of stored trajectories
 
+  // analysisManager
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->FillNtupleDColumn(0, nu_eEnergy);
+  analysisManager->FillNtupleDColumn(1, eEnergy);
+  analysisManager->FillNtupleDColumn(2, nu_muEnergy);
+  analysisManager->AddNtupleRow();
+  // get number of stored trajectories
   G4TrajectoryContainer* trajectoryContainer = event->GetTrajectoryContainer();
   G4int n_trajectories = 0;
   if (trajectoryContainer) n_trajectories = trajectoryContainer->entries();

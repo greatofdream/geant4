@@ -1,6 +1,6 @@
 /run/initialize
 
-/gps/verbose 0
+/gps/verbose 2
 /gps/particle mu-
 # default direction 1 0 0
 /gps/direction 1 0 0
@@ -15,3 +15,5 @@
 
 /gps/ene/type Mono
 /gps/ene/mono 0 MeV
+
+/run/beamOn 1000

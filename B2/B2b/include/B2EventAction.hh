@@ -44,6 +44,12 @@ class B2EventAction : public G4UserEventAction
 
     virtual void  BeginOfEventAction(const G4Event* );
     virtual void    EndOfEventAction(const G4Event* );
+    G4double nu_eEnergy;
+    G4bool nu_eFlag;
+    G4double nu_muEnergy;
+    G4bool nu_muFlag;
+    G4double eEnergy;
+    G4bool eFlag;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

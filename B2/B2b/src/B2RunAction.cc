@@ -31,7 +31,8 @@
 
 #include "G4Run.hh"
 #include "G4RunManager.hh"
-
+// analysis
+#include "g4root.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 B2RunAction::B2RunAction()
@@ -39,6 +40,17 @@ B2RunAction::B2RunAction()
 { 
   // set printing event number per each 100 events
   G4RunManager::GetRunManager()->SetPrintProgress(1000);     
+  auto analysisManager = G4AnalysisManager::Instance();
+  G4cout << "Using " << analysisManager->GetType() <<G4endl;
+  analysisManager->SetVerboseLevel(1);
+  analysisManager->SetNtupleMerging(true);
+
+  // Creating ntuple
+  analysisManager->CreateNtuple("Energy", "Energy of nu or n");
+  analysisManager->CreateNtupleDColumn("nu_eEnergy");
+  analysisManager->CreateNtupleDColumn("eEnergy");
+  analysisManager->CreateNtupleDColumn("nu_muEnergy");
+  analysisManager->FinishNtuple();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -52,11 +64,21 @@ void B2RunAction::BeginOfRunAction(const G4Run*)
 { 
   //inform the runManager to save random number seed
   G4RunManager::GetRunManager()->SetRandomNumberStore(false);
+  auto analysisManager = G4AnalysisManager::Instance();
+  G4String fileName = "signal";
+  analysisManager->OpenFile(fileName);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void B2RunAction::EndOfRunAction(const G4Run* )
-{}
+void B2RunAction::EndOfRunAction(const G4Run* run)
+{
+  G4int nofEvents = run->GetNumberOfEvent();
+  if(nofEvents == 0) return;
+  G4cout << "Events num:" << nofEvents <<G4endl;
+  auto analysisManager = G4AnalysisManager::Instance();
+  analysisManager->Write();
+  analysisManager->CloseFile();
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

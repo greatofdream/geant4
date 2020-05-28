@@ -131,11 +131,11 @@ G4VPhysicalVolume* B2bDetectorConstruction::DefineVolumes()
   
   G4double trackerLength = (NbOfChambers+1)*chamberSpacing;
 
-  G4double labRadius = 7*m;
-  G4double waterRadius = 8*m;
+  G4double labRadius = 14.1*m;
+  G4double waterRadius = 15*m;
   G4double waterHeight = 2*waterRadius;
-  G4double pbRadius1 = 8.1*m;
-  G4double pbRadius2 = 8.2*m; 
+  G4double pbRadius1 = 15.1*m;
+  G4double pbRadius2 = 15.2*m; 
   G4double pbHeight = waterHeight+20*cm;
   G4double worldLength = 2.5 * 2 * pbRadius2;
 
@@ -304,7 +304,7 @@ G4VPhysicalVolume* B2bDetectorConstruction::DefineVolumes()
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
- 
+
 void B2bDetectorConstruction::ConstructSDandField()
 {
   // Sensitive detectors
