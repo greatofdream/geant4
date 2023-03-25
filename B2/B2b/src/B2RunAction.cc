@@ -43,7 +43,7 @@ B2RunAction::B2RunAction()
   auto analysisManager = G4AnalysisManager::Instance();
   G4cout << "Using " << analysisManager->GetType() <<G4endl;
   analysisManager->SetVerboseLevel(1);
-  analysisManager->SetNtupleMerging(true);
+  //analysisManager->SetNtupleMerging(true);
 
   // Creating ntuple
   analysisManager->CreateNtuple("Energy", "Energy of nu or n");

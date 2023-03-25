@@ -43,7 +43,7 @@ void B2SteppingAction::UserSteppingAction(const G4Step* step)
       ->GetVolume()->GetLogicalVolume();
       
   // check if we are in scoring volume
-  if (volume != fScoringVolume) return;
+  //if (volume != fScoringVolume) return;
   G4Track* track = step->GetTrack();
   if(fEventAction->nFlag && track->GetDefinition() == G4Neutron::Neutron()){
     fEventAction->nEnergy = track->GetKineticEnergy();
@@ -57,6 +57,7 @@ void B2SteppingAction::UserSteppingAction(const G4Step* step)
     fEventAction->proton_z = track->GetVertexPosition().z();//step->GetPreStepPoint()->GetPosition().z();//track->GetPosition().z();
     fEventAction->pFlag = false;
   }
+  //if (track->GetDefinition() != G4Neutron::Neutron())
   if (track->GetDefinition() == G4Proton::Proton())
   {
     fEventAction->pAniEnergy += step->GetTotalEnergyDeposit();
