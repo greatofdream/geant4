@@ -1,0 +1,54 @@
+\documentclass[UTF-8]{ctexart}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{minted}
+\title{基于B2的探测器模拟}
+\begin{document}
+\maketitle
+\section{代码思路}
+在 \texttt{B2aDetectorConstruction.cc}中修改探测器几何与\texttt{ConstructSDandField()}函数。
+
+探测器几何修改包括对其中的探测器物质和几何的修改。
+
+在 \texttt{B2PrimaryGeneratorAction.cc}中设置粒子能量和粒子出射方向，位置。
+
+在新创建的\texttt{B2a.mac}中加入模拟时的代码,对每种粒子模拟10次
+
+\begin{minted}{sh}
+/globalField/setValue 0 0 0.5 tesla
+/gun/energy 1 GeV
+
+/gun/particle mu+
+/run/beamOn 10
+/vis/ogl/export mu.eps
+
+/gun/particle proton
+/run/beamOn 10
+/vis/ogl/export proton.eps
+
+/gun/particle e-
+/run/beamOn 10
+/vis/ogl/export e.eps
+
+/gun/particle neutron
+/run/beamOn 10
+/vis/ogl/export neutron.eps
+\end{minted}
+\section{模拟结果}
+\subsection{mu+}
+$\mu^+$，可以看到几乎没有产生反应
+
+    \includegraphics[width=1.1\textwidth]{../../B2/B2a-build/mu_0000.eps}
+\subsection{e-}
+$e^-$，在闪烁体中产生大量次级粒子，并且向四周发射，注意正中央是粒子出发点
+
+\includegraphics[width=1.1\textwidth]{../../B2/B2a-build/e_0000.eps}
+\subsection{proton}
+$p$，和$e^-$相当类似
+
+\includegraphics[width=1.1\textwidth]{../../B2/B2a-build/proton_0000.eps}
+\subsection{neutron}
+$n$即便在空气中也没有轨迹
+
+    \includegraphics[width=1.1\textwidth]{../../B2/B2a-build/neutron_0000.eps}
+\end{document}
